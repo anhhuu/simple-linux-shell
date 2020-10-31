@@ -11,7 +11,7 @@ void initShell(char* ruser, char *rdir)
 { 
     clear();
     char *user = getenv("USER"); 
-    printf("simle operating shell\n");
+    printf("simple operating shell\n");
     printf("USER is: %s", user);
     char dir[MAX_LIMIT];
     getcwd(dir, sizeof(dir)); 

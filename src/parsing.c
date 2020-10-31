@@ -65,9 +65,6 @@ int parseRedirecting(char* str, char** parseRedirecting)
             }
         }
     } 
-    
-    //printf("%d\n", parseRedirecting[0]);
-    //printf("%d\n", parseRedirecting[1]);
 
     if(caseRet == REDIRECTING_OUTPUT_EXEC)
     {

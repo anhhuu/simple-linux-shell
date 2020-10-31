@@ -23,7 +23,6 @@ History* initHistory(int maxSize)
 void addHistoryItem(History* history, char* item)
 {
     char* str = (char*) malloc(strlen(item) + 1);
-    //char str[100];
     if(history->length > 0)
     {
         if(strcmp(history->historyList[history->length-1], item) == 0 || strcmp("", item) == 0 || item[0] == '!')
@@ -96,20 +95,16 @@ void processHistory(char* inputStr, History* hist)
                 return;
             }
         }
-        //printf("%s\n", inputStr);
         strcpy(inputStr, inputStr + 1);
         int num = atoi(inputStr);
-        //printf("%d", num);
         if(hist->length > num)
         {
             strcpy(inputStr, hist->historyList[num]);
-            //printf("3. %s\n", inputStr);
             return;
         }
         else
         {
             strcpy(inputStr, "");
-            //printf("4. %s\n", inputStr);
             return;
         }
     }

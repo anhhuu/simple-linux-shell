@@ -39,41 +39,36 @@ int main()
             continue;
         }
 
-        //printf("%s", inputStr);
-
         int caseProcess = processInput(inputStr, tokens);
-        //printf("\n\n%s\n", tokens[0]);
-        //printf("%s\n", tokens[1]);
-        printf("%s\n\n", inputStr);
         switch(caseProcess)
         {
             case SIMPLE_EXEC:
-                printf("SIMPLE_EXEC\n");
+                //printf("SIMPLE_EXEC\n");
                 parseSpace(inputStr, argv);
                 execWithArgs(argv);
                 break;
             
             case PIPE_EXEC:
-                printf("PIPE_EXEC\n");
+                //printf("PIPE_EXEC\n");
                 parseSpace(tokens[0], argv);
                 parseSpace(tokens[1], argvPipe);
                 execWithArgsPiped(argv, argvPipe);
                 break;
             
             case REDIRECTING_OUTPUT_EXEC:     
-                printf("REDIRECTING_OUTPUT_EXEC\n");
+                //printf("REDIRECTING_OUTPUT_EXEC\n");
                 parseSpace(inputStr, argv);
                 execWithArgsAndRedirecting(argv, tokens[1], REDIRECTING_OUTPUT_EXEC);
                 break;
             
             case REDIRECTING_INPUT_EXEC:         
-                printf("REDIRECTING_INPUT_EXEC\n");
+                //printf("REDIRECTING_INPUT_EXEC\n");
                 parseSpace(inputStr, argv);
                 execWithArgsAndRedirecting(argv, tokens[1], REDIRECTING_INPUT_EXEC);
                 break;
 
             case USER_EXEC:
-                printf("USER_EXEC\n");
+                //printf("USER_EXEC\n");
                 processUserCMD(tokens);
                 break;
             
