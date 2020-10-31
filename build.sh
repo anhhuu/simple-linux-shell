@@ -5,6 +5,9 @@ rm build/utils.o
 rm build/main.o
 rm bin/osh
 
+mkdir bin
+mkdir build
+
 gcc src/history.c -o build/history.o -c
 gcc src/execution.c -o build/excution.o -c
 gcc src/parsing.c -o build/parsing.o -c
