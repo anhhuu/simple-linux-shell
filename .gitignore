@@ -1,4 +1,4 @@
 build/
 bin/
-*.c~
-*.gitignore~
+#*.c~
+#*.gitignore~
