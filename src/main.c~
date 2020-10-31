@@ -1,0 +1,81 @@
+#include <unistd.h>
+#include <stdio.h> 
+#include <string.h> 
+#include <stdlib.h> 
+#include <unistd.h> 
+#include <sys/types.h> 
+#include <sys/wait.h> 
+
+#include "common.h"
+#include "execution.h"
+#include "parsing.h"
+#include "utils.h"
+
+int main()
+{
+    char userName[MAX_LIMIT];
+    char dir[MAX_LIMIT];
+    char inputStr[MAX_LIMIT];
+
+    char* argv[MAXLIST];
+    char* argvPipe[MAXLIST];
+
+    char* tokens[2];
+    History *hist = initHistory(MAXLIST);
+    
+    initShell(userName, dir);
+    while(1)
+    {
+        getcwd(dir, sizeof(dir)); 
+        printf("%s@linux:~%s$ ", userName, dir);
+        getInput(inputStr);
+        addHistoryItem(hist, inputStr);
+        processHistory(inputStr, hist);
+
+        if(strcmp("history", inputStr) == 0)
+        {
+            int i = 0;
+            for(i = 0; i < hist->length; i++)
+            {
+                printf("%d: %s\n", i,hist->historyList[i]);
+            }
+            continue;
+        }
+
+        int caseProcess = processInput(inputStr, tokens);
+        switch(caseProcess)
+        {
+            case SIMPLE_EXEC:
+                parseSpace(inputStr, argv);
+                execWithArgs(argv);
+                break;
+            
+            case PIPED_EXEC:        
+                parseSpace(tokens[0], argv);
+                parseSpace(tokens[1], argvPipe);
+                execWithArgsPiped(argv, argvPipe);
+                break;
+            
+            case REDIRECTING_OUTPUT_EXEC:     
+                parseSpace(inputStr, argv);
+                execWithArgsAndRedirecting(argv, tokens[1], REDIRECTING_OUTPUT_EXEC);
+                break;
+            
+            case REDIRECTING_INPUT_EXEC:         
+                parseSpace(inputStr, argv);
+                execWithArgsAndRedirecting(argv, tokens[1], REDIRECTING_INPUT_EXEC);
+                break;
+
+            case USER_EXEC:
+                processUserCMD(tokens);
+                break;
+            
+            default:
+                break;
+        }
+    }   
+    destroyHistory(hist);
+    hist = NULL;
+    return 0;
+}
+
