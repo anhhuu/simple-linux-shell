@@ -12,7 +12,7 @@ void initShell(char* ruser, char *rdir)
 	clear();
 	char *user = getenv("USER");
 	printf("simple operating shell\n");
-	printf("USER is: %s", user);
+	printf("USER is: %s\n\n", user);
 	char dir[MAX_LIMIT];
 	getcwd(dir, sizeof(dir));
 
@@ -22,8 +22,18 @@ void initShell(char* ruser, char *rdir)
 
 int getInput(char* str)
 {
-	fgets(str, MAX_LIMIT, stdin);
-	str[strlen(str) - 1] = '\0';
+	/*fgets(str, MAX_LIMIT, stdin);
+	str[strlen(str) - 1] = '\0';*/
+	char* buf; 
+    buf = readline("$ "); 
+    if (strlen(buf) != 0) { 
+        add_history(buf); 
+        strcpy(str, buf); 
+        return 0; 
+    } else 
+    { 
+        return 1; 
+    } 
 }
 
 void processUserCMD(char** cmd)

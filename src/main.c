@@ -28,7 +28,7 @@ int main()
 	while (1)
 	{
 		getcwd(dir, sizeof(dir));
-		printf("%s@linux:~%s$ ", userName, dir);
+		printf("%s@linux:~%s", userName, dir);
 		getInput(inputStr);
 		addHistoryItem(hist, inputStr);
 		processHistory(inputStr, hist);
