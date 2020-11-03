@@ -1,5 +1,11 @@
 # simple-linux-shell
 
+# Install readline lib
+```
+sudo apt-get update
+sudo apt-get install libreadline-dev
+```
+
 # Directing to project folder
 
 ```
