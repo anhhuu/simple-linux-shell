@@ -17,14 +17,14 @@ void execWithArgs(char** argv)
 	if (pid == -1)
 	{
 		//error forking child
-		printf("\nFailed forking child!\n");
+		printf("Failed forking child!\n");
 		return;
 	} else if (pid == 0)
 	{
 		//child process
 		if (execvp(argv[0], argv) < 0)
 		{
-			printf("\nCould not execute command!\n");
+			printf("Could not execute command!\n");
 			exit(0);
 		}
 	} else
@@ -42,13 +42,13 @@ void execWithArgsPiped(char** argvPipe1, char** argvPipe2)
 
 	if (pipe(pipefd) < 0)
 	{
-		printf("\nPipe could not be initialized!");
+		printf("Pipe could not be initialized!");
 		return;
 	}
 	p1 = fork();
 	if (p1 < 0)
 	{
-		printf("\nCould not fork chill process!");
+		printf("Could not fork chill process!");
 		return;
 	}
 
@@ -62,7 +62,7 @@ void execWithArgsPiped(char** argvPipe1, char** argvPipe2)
 
 		if (execvp(argvPipe1[0], argvPipe1) < 0)
 		{
-			printf("\nCould not execute command 1 in pipe!\n");
+			printf("Could not execute command 1 in pipe!\n");
 			exit(0);
 		}
 
@@ -72,7 +72,7 @@ void execWithArgsPiped(char** argvPipe1, char** argvPipe2)
 		p2 = fork();
 
 		if (p2 < 0) {
-			printf("\nCould not fork!\n");
+			printf("Could not fork!\n");
 			return;
 		}
 
@@ -86,7 +86,7 @@ void execWithArgsPiped(char** argvPipe1, char** argvPipe2)
 			printf("\n");
 			if (execvp(argvPipe2[0], argvPipe2) < 0)
 			{
-				printf("\nCould not execute command 2 in pipe!\n");
+				printf("Could not execute command 2 in pipe!\n");
 				exit(0);
 			}
 		} else
@@ -108,7 +108,7 @@ void execWithArgsAndRedirecting(char** argv, char* fileName, int stream)
 	if (pid == -1)
 	{
 		//error
-		printf("\nFailed forking child..\n");
+		printf("Failed forking child..\n");
 		return;
 	}
 	else if (pid == 0)
@@ -127,7 +127,7 @@ void execWithArgsAndRedirecting(char** argv, char* fileName, int stream)
 		//child
 		if (execvp(argv[0], argv) < 0)
 		{
-			printf("\nCould not execute command..\n");
+			printf("Could not execute command..\n");
 		}
 		exit(0);
 	} else

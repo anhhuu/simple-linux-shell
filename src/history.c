@@ -1,12 +1,13 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "history.h"
 #include "common.h"
 
 History* initHistory(int maxSize)
 {
-	History* history = (History*) malloc(sizeof(History));
+	History* history = malloc(sizeof(History));
 	history->length = 0;
 	history->maxSize = maxSize;
 	int i = 0;
@@ -22,7 +23,7 @@ History* initHistory(int maxSize)
 
 void addHistoryItem(History* history, char* item)
 {
-	char* str = (char*) malloc(strlen(item) + 1);
+	char* str = (char*) malloc(strlen(item) + 8);
 	if (history->length > 0)
 	{
 		if (strcmp(history->historyList[history->length - 1], item) == 0 || strcmp("", item) == 0 || item[0] == '!')

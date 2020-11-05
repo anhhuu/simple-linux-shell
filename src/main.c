@@ -14,9 +14,10 @@
 
 int main()
 {
-	char userName[MAX_LIMIT];
-	char dir[MAX_LIMIT];
-	char inputStr[MAX_LIMIT];
+	char userName[MAX_LIMIT] = "";
+	char dir[MAX_LIMIT] = "";
+	char preDir[MAX_LIMIT] = "";
+	char inputStr[MAX_LIMIT] = "";
 
 	char* argv[MAXLIST];
 	char* argvPipe[MAXLIST];
@@ -29,6 +30,7 @@ int main()
 	{
 		getcwd(dir, sizeof(dir));
 		printf("%s@linux:~%s", userName, dir);
+		strcpy(inputStr, "");
 		getInput(inputStr);
 		addHistoryItem(hist, inputStr);
 		processHistory(inputStr, hist);
@@ -38,8 +40,9 @@ int main()
 			printHistory(hist);
 			continue;
 		}
-
+				
 		int caseProcess = processInput(inputStr, tokens);
+		
 		switch (caseProcess)
 		{
 		case SIMPLE_EXEC:
@@ -69,7 +72,7 @@ int main()
 
 		case USER_EXEC:
 			//printf("USER_EXEC\n");
-			processUserCMD(tokens);
+			processUserCMD(tokens, dir, preDir);
 			break;
 
 		default:

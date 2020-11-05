@@ -36,18 +36,42 @@ int getInput(char* str)
     } 
 }
 
-void processUserCMD(char** cmd)
+void processUserCMD(char** cmd, char* dir, char* preDir)
 {
-	chdir(cmd[1]);
+	if(strcmp(cmd[0], "cd") == 0)
+	{
+		if(strcmp(cmd[1], "~") == 0)
+		{
+			chdir("/home/anhhuu");
+			return;
+		}
+		if(strcmp(cmd[1], "-") == 0)
+		{
+			chdir(preDir);
+			strcpy(preDir, dir);
+			return;
+		}
+		chdir(cmd[1]);
+	}
 }
 
 int processInput(char* inputStr, char** tokens)
 {
 	char inputCopy[MAX_LIMIT];
 	strcpy(inputCopy, inputStr);
+
+	int i = strlen(inputCopy) - 1;;
+	while(inputCopy[i] == 32 && i>=0)
+	{
+		inputCopy[i] = '\0';
+		i--;
+	}
+
+	if(strlen(inputCopy) == 0) return;
+
 	parseSpace(inputCopy, tokens);
 	char* listUserCMD[] = {"cd"};
-	int i = 0;
+	i = 0;
 	int switchOwnArg = 0;
 	for (i = 0; i < 1; i++) {
 		if (strcmp(tokens[0], listUserCMD[i]) == 0)
