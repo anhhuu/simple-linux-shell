@@ -36,13 +36,15 @@ int getInput(char* str)
     } 
 }
 
-void processUserCMD(char** cmd, char* dir, char* preDir)
+void processUserCMD(char** cmd, char* dir, char* preDir, char* user)
 {
 	if(strcmp(cmd[0], "cd") == 0)
 	{
 		if(strcmp(cmd[1], "~") == 0)
 		{
-			chdir("/home/anhhuu");
+			char userdir[MAX_LIMIT] = "/home/";
+			strcat(userdir, user);
+			chdir(userdir);
 			return;
 		}
 		if(strcmp(cmd[1], "-") == 0)
@@ -52,6 +54,11 @@ void processUserCMD(char** cmd, char* dir, char* preDir)
 			return;
 		}
 		chdir(cmd[1]);
+	}
+
+	if(strcmp(cmd[0], "exit") == 0)
+	{
+		exit(0);
 	}
 }
 
@@ -70,10 +77,10 @@ int processInput(char* inputStr, char** tokens)
 	if(strlen(inputCopy) == 0) return;
 
 	parseSpace(inputCopy, tokens);
-	char* listUserCMD[] = {"cd"};
+	char* listUserCMD[] = {"cd", "exit"};
 	i = 0;
 	int switchOwnArg = 0;
-	for (i = 0; i < 1; i++) {
+	for (i = 0; i < 2; i++) {
 		if (strcmp(tokens[0], listUserCMD[i]) == 0)
 		{
 			switchOwnArg = i + 1;
@@ -83,6 +90,7 @@ int processInput(char* inputStr, char** tokens)
 
 	switch (switchOwnArg) {
 	case 1:
+	case 2:
 		return USER_EXEC;
 	default:
 		break;

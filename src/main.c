@@ -72,7 +72,7 @@ int main()
 
 		case USER_EXEC:
 			//printf("USER_EXEC\n");
-			processUserCMD(tokens, dir, preDir);
+			processUserCMD(tokens, dir, preDir, userName);
 			break;
 
 		default:
